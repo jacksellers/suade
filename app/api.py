@@ -38,14 +38,20 @@ def report():
                 'WHERE date(created_at)={}'.format(date)
             ).fetchone()[0]
         con.close()
-    return jsonify(
-        {
-            'customers': customers,
-            'total_discount_amount': round(total_discount_amount, 2),
-            'items': items,
-            'order_total_avg': round(order_total_avg, 2),
-            'discount_rate_avg': round(discount_rate_avg, 2)
-        }
-    )
+        return jsonify(
+            {
+                'customers': customers,
+                'total_discount_amount': round(total_discount_amount, 2),
+                'items': items,
+                'order_total_avg': round(order_total_avg, 2),
+                'discount_rate_avg': round(discount_rate_avg, 2)
+            }
+        )
+    else:
+        return jsonify(
+            {
+                'error': 'Please include a date in the request parameters.'
+            }
+        )
 
 app.run()
